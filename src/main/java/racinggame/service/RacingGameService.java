@@ -1,8 +1,6 @@
-package racinggame.domain;
+package racinggame.service;
 
-public class RacingGameService {
+public interface RacingGameService {
 
-    public void startGame() {
-
-    }
+    public void startGame();
 }
