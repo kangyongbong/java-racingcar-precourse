@@ -24,14 +24,10 @@ public class CarsTest {
     @BeforeEach
     public void setUp() {
         carList = new ArrayList<>();
-        car1 = new Car();
-        car1.setCarName("1번");
-        car2 = new Car();
-        car2.setCarName("2번");
-        carOverLength = new Car();
-        carOverLength.setCarName("5자이상의이름");
-        carEmpty = new Car();
-        carEmpty.setCarName(" ");
+        car1 = new Car("1번");
+        car2 = new Car("2번");
+        carOverLength = new Car("5자이상의이름");
+        carEmpty = new Car(" ");
     }
 
     @Test

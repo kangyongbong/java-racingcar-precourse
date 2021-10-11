@@ -15,7 +15,6 @@ public class Cars {
     private List<Car> createName(List<Car> carList) {
         validateEmptyList(carList);
         for (Car carName : carList) {
-            validateEmptyName(carName.getCarName());
             validateNameLength(carName.getCarName());
         }
 
@@ -25,12 +24,6 @@ public class Cars {
     public void validateEmptyList(List<Car> carList) {
         if (carList == null || carList.size() <= 0) {
             throw new IllegalArgumentException(ErrorMessageConstant.ERR_MSG_LIST);
-        }
-    }
-
-    private void validateEmptyName(String carName) {
-        if (carName == null || carName.replaceAll(" ", "").equals("")) {
-            throw new IllegalArgumentException(ErrorMessageConstant.ERR_MSG_EMPTY);
         }
     }
 
