@@ -1,11 +1,9 @@
-package racinggame;
+package racinggame.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import racinggame.constant.ErrorMessageConstant;
-import racinggame.domain.Cars;
-import racinggame.domain.RandomNum;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
