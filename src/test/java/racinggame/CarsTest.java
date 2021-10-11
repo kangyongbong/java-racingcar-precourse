@@ -1,54 +1,34 @@
 package racinggame;
 
-import static org.assertj.core.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import racinggame.constant.ErrorMessageConstant;
-import racinggame.domain.Car;
 import racinggame.domain.Cars;
+import racinggame.domain.RandomNum;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CarsTest {
 
-    private Cars cars;
-    private Car car1;
-    private Car car2;
-    private Car carOverLength;
-    private Car carEmpty;
-    private List<Car> carList;
-
     @BeforeEach
     public void setUp() {
-        carList = new ArrayList<>();
-        car1 = new Car("1번");
-        car2 = new Car("2번");
-        carOverLength = new Car("5자이상의이름");
-        carEmpty = new Car(" ");
     }
 
     @Test
     @DisplayName("Cars 일급객체 검증")
     public void carsInit() {
-        carList.add(car1);
-        carList.add(car2);
-        cars = new Cars(carList);
-
-        assertThat(cars.getCars().size()).isEqualTo(2);
-        assertThat(cars.getCars().get(0).getCarName()).isEqualTo("1번");
-        assertThat(cars.getCars().get(1).getCarName()).isEqualTo("2번");
+        Cars cars = new Cars("1번,2번");
+        assertThat(cars.getCarsList().size()).isEqualTo(2);
+        assertThat(cars.getCar(0).getCarName()).isEqualTo("1번");
+        assertThat(cars.getCar(1).getCarName()).isEqualTo("2번");
     }
 
     @Test
     @DisplayName("5자이상의 이름 검증")
     public void carsOverTest() {
-        carList = new ArrayList<>();
-        carList.add(carOverLength);
-
-        assertThatThrownBy(() -> new Cars(carList))
+        assertThatThrownBy(() -> new Cars("5자이상의이름"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessageConstant.ERR_MSG_SIZE);
     }
@@ -56,10 +36,20 @@ public class CarsTest {
     @Test
     @DisplayName("자동차 이름 공백")
     public void carsEmptyTest() {
-        carList.add(carEmpty);
-
-        assertThatThrownBy(() -> new Cars(carList))
+        assertThatThrownBy(() -> new Cars(" "))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessageConstant.ERR_MSG_EMPTY);
     }
+
+    @Test
+    @DisplayName("자동차 포지션 검증")
+    public void carsPositionTest() {
+        Cars cars = new Cars("1번,2번");
+        assertThat(cars.getPosition(0).getCarPosition()).isEqualTo(0);
+        RandomNum randomNum = new RandomNum();
+        cars.moveForword(0, randomNum);
+        assertThat(cars.getPosition(0).getGameIndex()).isEqualTo(1);
+        assertThat(cars.getPosition(0).getLastNumber()).isEqualTo(randomNum.getRandomNum());
+    }
+
 }
