@@ -4,6 +4,7 @@ import racinggame.constant.ErrorMessageConstant;
 import racinggame.constant.InputDefinitionConstant;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Cars {
@@ -36,7 +37,7 @@ public class Cars {
         return createName(carList);
     }
 
-    public void validateEmptyList(List<Car> carList) {
+    private void validateEmptyList(List<Car> carList) {
         if (carList == null || carList.size() <= 0) {
             throw new IllegalArgumentException(ErrorMessageConstant.ERR_MSG_LIST);
         }
@@ -50,6 +51,11 @@ public class Cars {
 
     public List<Car> getCarsList() {
         return this.carList;
+    }
+
+    public int getCarsSize() {
+        return this.carList
+                .size();
     }
 
     public Car getCar(int index) {
@@ -69,4 +75,9 @@ public class Cars {
                 .getPosition()
                 .moveForwod(randomNum);
     }
+
+    public void listSort() {
+        carList.sort(Comparator.comparing(Car::getCarPosition).reversed());
+    }
+
 }
