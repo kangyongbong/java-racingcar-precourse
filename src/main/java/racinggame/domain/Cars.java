@@ -3,9 +3,7 @@ package racinggame.domain;
 import racinggame.constant.ErrorMessageConstant;
 import racinggame.constant.InputDefinitionConstant;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Cars {
     private final List<Car> carList;
@@ -19,7 +17,6 @@ public class Cars {
     }
 
     private List<Car> createName(List<Car> carList) {
-        validateEmptyList(carList);
         for (Car carName : carList) {
             validateNameLength(carName.getCarName());
         }
@@ -35,12 +32,6 @@ public class Cars {
         }
 
         return createName(carList);
-    }
-
-    private void validateEmptyList(List<Car> carList) {
-        if (carList == null || carList.size() <= 0) {
-            throw new IllegalArgumentException(ErrorMessageConstant.ERR_MSG_LIST);
-        }
     }
 
     private void validateNameLength(String carName) {
@@ -80,4 +71,9 @@ public class Cars {
         carList.sort(Comparator.comparing(Car::getCarPosition).reversed());
     }
 
+    public int maxPosition() {
+        listSort();
+
+        return getPosition(0).getCarPosition();
+    }
 }
