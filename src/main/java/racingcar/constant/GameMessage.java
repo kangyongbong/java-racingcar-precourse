@@ -7,7 +7,7 @@ public enum GameMessage {
 
     OUTPUT_RESULT("실행 결과"),
     OUTPUT_RESULT_CAR("%s : %s"),
-    OUTPUT_WINNER("최종 우승자 : %s");
+    OUTPUT_WINNER("최종 우승자는 %s 입니다.");
 
     GameMessage(String message) {
         this.message = message;
