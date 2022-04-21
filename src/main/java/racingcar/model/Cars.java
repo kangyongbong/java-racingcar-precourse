@@ -8,13 +8,14 @@ import racingcar.service.impl.ValidateServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Cars {
     private final List<Car> listCar;
 
     public Cars(String carNames) {
-        this.listCar = new ArrayList<>();
+        listCar = new ArrayList<>();
         setCars(Arrays.asList(carNames.split(",")));
     }
 
@@ -22,21 +23,16 @@ public class Cars {
         ValidateService validateService = new ValidateServiceImpl();
         for (String carName : carNames) {
             validateService.validateCarName(this, carName.trim());
-            Car car = new Car(new CarName(carName.trim()), new CarPosition(0));
-            this.listCar.add(car);
+            listCar.add(new Car(new CarName(carName.trim()), new CarPosition(0)));
         }
     }
 
     public List<Car> toList() {
-        return this.listCar;
-    }
-
-    public Car getCar(int index) {
-        return this.listCar.get(index);
+        return listCar;
     }
 
     public String getCarName(int index) {
-        return getCar(index).getCarName().getName();
+        return toList().get(index).getCarName().getName();
     }
 
     public List<String> getListCarName() {
@@ -47,7 +43,18 @@ public class Cars {
         return listCarName;
     }
 
-    public int getCarPosition(int index) {
-        return getCar(index).getCarPosition().getPosition();
+    public int isMaxPosition() {
+        Collections.sort(toList());
+        return toList().get(0).getCarPosition().getPosition();
+    }
+
+    public List<String> winnerName(int max) {
+        List<String> listWinner = new ArrayList<>();
+        for (Car car : listCar) {
+            listWinner.add(car.winnerCar(max));
+        }
+        listWinner.removeAll(Arrays.asList(""));
+
+        return listWinner;
     }
 }
