@@ -1,9 +1,9 @@
 package racingcar.constant;
 
 public enum RandomRules {
-    MIN(0)
-    , MAX(9)
-            ;
+    MIN(0),
+    MAX(9)
+    ;
 
     RandomRules(int condition) {
         this.condition = condition;
